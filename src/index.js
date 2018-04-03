@@ -7,8 +7,8 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import App from './components/app';
 import Signin from './components/auth/signin';
 import reducers from './reducers';
-
-const createStoreWithMiddleware = applyMiddleware()(createStore);
+import reduxThink from 'redux-thunk'
+const createStoreWithMiddleware = applyMiddleware(reduxThink)(createStore);
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>

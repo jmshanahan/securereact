@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { connect} from 'react-redux';
+
+import { signinUser } from '../../actions';
 
 class Signin extends Component {
   handleFormSubmit( {email, password}){
     console.log(`Email is ${email} password is ${password}`);
+    //this.props.signinUser({email, password});
+    this.props.signinUser({email, password});
   }
 
 
@@ -45,6 +50,7 @@ class Signin extends Component {
 // redux form 
 // first set of params if for configuration
 // second set is for redux sign
+// by setting up actions below we get access to our actions on props
 export default reduxForm({
   form: 'signin'
-})(Signin);
+})(connect( null, {signinUser})(Signin));
