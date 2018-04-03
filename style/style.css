@@ -1,3 +1,14 @@
-.button {
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+form > button {
+  margin-top: 120px;
+}
+form label {
+  font-weight: 900;
+} 
+
+.form-Bottom {
   margin-top: 20px;
 }

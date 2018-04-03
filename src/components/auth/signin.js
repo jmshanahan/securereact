@@ -15,32 +15,27 @@ class Signin extends Component {
     // We need to bind it otherwise this is tied to the form.
     const { handleSubmit } = this.props;
     return (
-      <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+      <form className="form-horizontal" onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
         <div clsssName="form-group">
-        <label>Email</label>
-        <div>
-          <Field
-            name="email"
-            component="input"
-            type="text"
-            placeholder="Email"
-            className="form-control"
-          />
+          <label>Email</label>
+            <Field
+              name="email"
+              component="input"
+              type="text"
+              placeholder="Email"
+              className="form-control"
+            />
         </div>
-      </div>
-      <div clsssName="form-group">
-        <label>Password </label>
-        <div>
-          <Field
-            name="password"
-            component="input"
-            type="text"
-            placeholder="Password"
-            className="form-control"
-
-          />
-        </div>
-        </div>
+        <div clsssName="form-group">
+          <label>Password </label>
+            <Field
+              name="password"
+              component="input"
+              type="text"
+              placeholder="Password"
+              className="form-control"
+            />
+          </div>
         <button action="submit" className="btn btn-primary button">Sign in</button>     
       </form>
     );
