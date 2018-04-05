@@ -2,15 +2,21 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect} from 'react-redux';
 
-import { signinUser } from '../../actions';
+import { signinUser, authError } from '../../actions';
 
 class Signin extends Component {
   handleFormSubmit( {email, password}){
-    console.log(`Email is ${email} password is ${password}`);
-    //this.props.signinUser({email, password});
     this.props.signinUser({email, password});
   }
-
+  renderAlert(){
+    if(this.props.errorMessage){
+      return (
+    <div className="alert alert-danger">
+      <strong>{this.props.errorMessage}</strong>
+    </div>
+      );
+    }
+  }
 
   render(){
     //handleSubmit comes from redux form 
@@ -36,21 +42,33 @@ class Signin extends Component {
             <Field
               name="password"
               component="input"
-              type="text"
+              type="password"
               placeholder="Password"
               className="form-control"
             />
           </div>
+          {this.renderAlert()}
         <button action="submit" className="btn btn-primary button">Sign in</button>     
       </form>
     );
   }
 };
 
+function mapStateToProps(state){
+  return { errorMessage: state.auth.error}
+}
 // redux form 
 // first set of params if for configuration
 // second set is for redux sign
 // by setting up actions below we get access to our actions on props
 export default reduxForm({
   form: 'signin'
-})(connect( null, {signinUser})(Signin));
+})(connect( mapStateToProps, {signinUser})(Signin));
+
+// This methos should work but dosent
+// assuming we imported actions as follows
+// import * as actions from '../../actions';
+
+// export default reduxForm({
+//   form: 'signin'
+// }, mapStateToProps, {signinUser}) (Signin);
