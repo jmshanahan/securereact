@@ -1,3 +1,6 @@
+
+
+
 import axios from 'axios';
 import { browserHistory } from 'react-router';
 import { AUTH_USER, UNAUTH_USER, AUTH_ERROR } from './types';
@@ -27,7 +30,33 @@ export function signinUser({email, password}){
     });
   }
 }
+
+export function signupUser ({email, password}){
+  // Submit email/password to the server
+  return function (dispatch){
+    axios.post(`${ROOT_URL}/signup`,{email, password})
+    .then(response => {
+    console.log('auth error jkd');
+
+    // //if request is good
+    // // - Update state to indicate user is authenticated
+    // // This is redux-thunk in action ie calling the dispatch method
+    dispatch({ type: AUTH_USER});
+
+    // // - Save the JWT token
+    localStorage.setItem('token', response.data.token );
+    // // -redirect to the route '/feature'
+    browserHistory.push('/feature');
+     })
+    .catch((error) => {
+      console.log(error);
+      dispatch(authError(error));
+     });
+  }
+}
+
 export function authError(error){
+  //console.log('auth error jkd');
   return {
     type: AUTH_ERROR,
     payload: error
@@ -37,3 +66,4 @@ export function signoutUser(){
   localStorage.removeItem('token');
   return { type: UNAUTH_USER}
 }
+
