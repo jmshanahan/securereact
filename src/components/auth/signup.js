@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Field, reduxForm, propTypes } from 'redux-form';
 import { connect} from 'react-redux';
-
-import { signupUser } from '../../actions';
+import {AUTH_USER, UNAUTH_USER, AUTH_ERROR} from '../../actions/types';
+import * as actions from '../../actions';
 
 class Signup extends Component {
 
@@ -43,6 +43,7 @@ class Signup extends Component {
         <Field label="Password" name="password" className="form-control" type="password" component={this.renderField} placeholder="Password"  autoComplete="off"/>
         <Field label="Confirm Password" name="passwordConfirm"className="form-control" type="password" component={this.renderField}   placeholder="Confirm Password"autoComplete="off"/>
         <button action="submit" className="btn btn-primary">Sign up</button>     
+        {this.renderAlert()}
       </form>
     );
   }
@@ -68,10 +69,10 @@ function validate(formProps){
   return errors;
 }
 function mapStateToProps(state){
-  return { errorMessage: state.auth.error}
+    return { errorMessage: state.auth.error}
 }
 export default reduxForm({
   form:'signup',
   validate
-})(connect( mapStateToProps, {signupUser})(Signup));
+})(connect( mapStateToProps, actions)(Signup));
 
