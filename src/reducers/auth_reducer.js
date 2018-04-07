@@ -1,4 +1,6 @@
-import { AUTH_USER, UNAUTH_USER, AUTH_ERROR } from '../actions/types';
+import { AUTH_USER, UNAUTH_USER, AUTH_ERROR, FETCH_MESSAGE } from '../actions/types';
+//Note we should create a new reducer for FETCH_MESSAGE
+//But just to finish up we'll put it in here.
 
 export default function (state = {}, action){
   switch(action.type){
@@ -8,6 +10,8 @@ export default function (state = {}, action){
       return { ...state, error:'',authenticated: false}
     case AUTH_ERROR:
       return {...state, error: action.payload}
+    case FETCH_MESSAGE:
+      return {...state, message: action.payload}
   }
   return state;
 }
